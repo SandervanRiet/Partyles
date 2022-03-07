@@ -1,14 +1,28 @@
-html{
-    background-color: red;
+body {
+    background-color: #D0CFEC;
+    color: #4c6c5d;
+    font-family: Bahnschrift, sans-serif;
+    margin: 0;
 }
-div.info{
-    display: inline-block;
-    width: 200px;
+
+h1 {
+    margin: 20px 40px;
+    text-align: left;
+    font-size: 4em;
 }
-div.info+div{
-    display: inline-block;
+
+h2 {
+    margin: 10px 0;
+    font-size: 2em;
 }
+
+a {
+    text-decoration: none;
+}
+
+/* header with title and navigation */
 .nav {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -17,13 +31,34 @@ div.info+div{
     color: #EDC7CF;
     height: 150px;
 }
-a.menuButton {
-    display: block;
-    margin: 0 10px;
-    width: 6em;
-    padding: 0.2em;
+
+.freespaceforheader {
+    margin: 150px 0 20px 0;
 }
 
+/*navigation buttons in header*/
+.navbuttons {
+    display: flex;
+}
+
+.row1 {
+    display: flex;
+    position: relative;
+    margin: 100px 0 20px 0;
+    min-height: 500px;
+}
+
+.row1 img {
+    width: 100%;
+    height: auto;
+}
+
+.row1content {
+    flex-grow: 4;
+    margin: 0 50px;
+}
+
+/* links that look like buttons */
 .buttonLook {
     background-color: #EDC7CF;
     color: #6A8E7F;
@@ -31,6 +66,34 @@ a.menuButton {
     text-align: center;
     box-shadow: 1px 1px 1px darkgrey;
 }
-.navbuttons {
-    display: flex;
+
+.buttonLook:hover {
+    background-color: #6A8E7F;
+    color: #EDC7CF;
+}
+
+.buttonLook:active {
+    background-color: #6A8E7F;
+    color: #EDC7CF;
+}
+
+.mediumButton {
+    display: block;
+    margin: 10px 40px;
+    width: 400px;
+    font-size: 1.2em;
+    padding: 1em;
+}
+
+.smallButton {
+    display: block;
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+.menuButton {
+    display: block;
+    margin: 0 10px;
+    width: 6em;
+    padding: 0.2em;
 }

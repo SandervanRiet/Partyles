@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -16,22 +17,50 @@ public class ArtistController {
     @Autowired
     private ArtistRepository artistRepository;
 
+    @GetMapping("/artistlist")
+    public String artistList(Model model) {
+        Iterable<Artist> artists = artistRepository.findAll();
+        model.addAttribute("artists", artists);
+        return "artistlist";
+    }
 
     @GetMapping({"/artistdetails", "/artistdetails/{id}"})
-    public String artistdetails(Model model, @PathVariable(required = false) Integer id) {
+    public String artistDetails(Model model, @PathVariable(required = false) Integer id) {
         if (id==null) return "artistdetails";
         Optional<Artist> optionalArtist = artistRepository.findById(id);
+        Optional<Artist> optionalPrev = artistRepository.findFirstByIdLessThanOrderByIdDesc(id);
+        Optional<Artist> optionalNext = artistRepository.findFirstByIdGreaterThanOrderById(id);
         if (optionalArtist.isPresent()) {
             model.addAttribute("artist", optionalArtist.get());
         }
+        if (optionalPrev.isPresent()) {
+            model.addAttribute("prev", optionalPrev.get().getId());
+        } else {
+            model.addAttribute("prev", artistRepository.findFirstByOrderByIdDesc().get().getId());
+        }
+        if (optionalNext.isPresent()) {
+            model.addAttribute("next", optionalNext.get().getId());
+        } else {
+            model.addAttribute("next", artistRepository.findFirstByOrderByIdAsc().get().getId());
+        }
         return "artistdetails";
     }
+    @GetMapping({"/artistlist/filter"})
+    public String artistListWithFilter(Model model,@RequestParam(required = false) String keyword ) {
+        Iterable<Artist> allArtist=artistRepository.findAll();
+        if (keyword != null ){
+
+            allArtist = artistRepository.findByArtistNameContainsIgnoreCase(keyword);}
 
 
-    @GetMapping("/artistlist")
-    public String artistList(Model model) {
-        Iterable<Artist> allArtists = artistRepository.findAll();
-        model.addAttribute("artists", allArtists);
+        else {
+            allArtist = artistRepository.findAll();
+
+        }
+        model.addAttribute("artists",allArtist);
+        model.addAttribute("nrArtists",artistRepository.count());
+        model.addAttribute("showFilter", true);
+        model.addAttribute("keyword",keyword);
         return "artistlist";
     }
 }

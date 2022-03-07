@@ -2,31 +2,37 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Artistdetails</title>
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/party.css}" href="/static/css/party.css" />
+    <title>Artist Details</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/party.css}" href="/css/party.css" />
 </head>
 <body>
 <div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
-<div th:if="${artist}">
-    <h2 th:text="${artist.getArtistName()}">Naam artist</h2>
-    <div >
-        <div class="info">Info :</div>
-        <div><a th:href="@{${artist.getLinkMoreInfo()}}" >https://denaalmoezenier.weebly.com/</a></div>
-        <br>
-        <div class="info">Genre : </div>
-        <div><p th:text="${artist.getGenre()}">rap</p></div>
-        <br>
-        <div class="info">bio : </div>
-        <div><p th:text="${artist.getBio()}">bio</p></div>
-        <br>
-        <div class="info">portfolio : </div>
-        <div><p th:text="${artist.portfolio }">portefolio</p></div>
-        <br>
+<div class="row1">
+    <div class="row1content">
+        <div th:if="${artist}">
+            <div th:if="${prev!=null}" class="prevButtonDiv">
+                <a class="buttonLook smallButton" th:href="@{'/artistdetails/' + ${prev}}">&lt;</a>
+            </div>
+            <div th:if="${next!=null}" class="nextButtonDiv">
+                <a class="buttonLook smallButton" th:href="@{'/artistdetails/' + ${next}}">&gt;</a>
+            </div>
+        </div>
+        <div>
+            <h2 th:if="${artist}" th:text="|artist: ${artist.artistName}|">artist: onbekend</h2>
+            <p th:unless="${artist}">artist: onbekend</p>
+        </div>
+        <div th:if="${artist}">
+            <div class="info">Info : </div>
+            <div><a th:href="@{${artist.getLinkMoreInfo()}}" th:text="${artist.getLinkMoreInfo()}">klik hier</a></div><br>
+            <div class="info">Genre : </div>
+            <div><p th:text="${artist.getGenre()}">0</p></div><br>
+            <div class="info">Bio : </div>
+            <div><p th:text="${artist.getBio()}">no</p></div><br>
+            <div class="info">Portfolio : </div>
+            <div><p th:text="${artist.getPortfolio()}">no</p></div><br>
+        </div>
     </div>
-</div > <div class="row1content" th:unless="${artist}">
-    <p>no venue was chosen</p>
 </div>
-<footer th:replace="fragments/headerfooter :: footer">Hier komt de header</footer>
+<div th:replace="fragments/headerfooter :: footer">Hier komt de footer</div>
 </body>
 </html>

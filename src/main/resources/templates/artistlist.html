@@ -5,21 +5,52 @@
     <title>Venuelist</title>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/party.css}" href="/static/css/party.css" />
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Artist Overview</title>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/party.css}" href="/css/party.css"/>
+    </head>
 <body>
 <div th:replace="fragments/headerfooter :: header">Hier komt de header</div>
+
+
 <div class="row1">
     <div class="row1content">
         <h2>artists</h2>
+
+        <div class="filters" th:unless="${showFilter}">
+            <div class="verticalmargin">
+                <a th:href="@{/artistlist/filter}" class="buttonLook filterButton">+</a>
+            </div>
+
+        </div>
+        <div class="filters" th:if="${showFilter}">
+            <div class="verticalmargin">
+                <a th:href="@{/artistlist}" class="buttonLook filterButton">-</a>
+            </div>
+            <form>
+                <div class="onefilter">
+                    <input type="submit" value="search" class="buttonLook">
+                </div>
+                <div class="onefilter">
+                    <label for="keyword" class="filtername">keyboard</label>
+                    <input type="text" id="keyword" name="keyword" th:value="${keyword}" step="50">
+                    <span>artist('s)</span>
+                </div>
+            </form>
+        </div>
+
         <div class="artistlist">
             <div th:each="artist: ${artists}">
-                <a class="buttonLook mediumButton" th:href="@{|/artistdetails/${artist.id}|}">">
-                    <span th:text="${artist.artistName}">artist name</span>
+                <a class="buttonLook mediumButton" th:href="@{'/artistdetails/'+${artist.getId()}}">
+                    <span th:text="${artist.getArtistName()}">venue name</span>
                 </a>
             </div>
         </div>
     </div>
+
+
 </div>
-<footer th:replace="fragments/headerfooter :: footer">Hier komt de header</footer>
+<div th:replace="fragments/headerfooter :: footer">Hier komt de footer</div>
 </body>
 </html>
