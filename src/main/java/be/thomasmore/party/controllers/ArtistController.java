@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Controller
@@ -45,22 +46,14 @@ public class ArtistController {
         }
         return "artistdetails";
     }
-    @GetMapping({"/artistlist/filter"})
-    public String artistListWithFilter(Model model,@RequestParam(required = false) String keyword ) {
-        Iterable<Artist> allArtist=artistRepository.findAll();
-        if (keyword != null ){
-
-            allArtist = artistRepository.findByArtistNameContainsIgnoreCase(keyword);}
-
-
-        else {
-            allArtist = artistRepository.findAll();
-
-        }
-        model.addAttribute("artists",allArtist);
-        model.addAttribute("nrArtists",artistRepository.count());
+    @GetMapping("artistlist/filter")
+    public String artistListWithFilter(Model model, @RequestParam(required = false) String keyword) {
+        Iterable<Artist> artists;
+        artists = artistRepository.findByKeyword(keyword);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("artists", artists);
+        model.addAttribute("nrArtists", ((Collection<Artist>) artists).size());
         model.addAttribute("showFilter", true);
-        model.addAttribute("keyword",keyword);
         return "artistlist";
     }
 }
