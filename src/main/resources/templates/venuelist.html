@@ -33,8 +33,49 @@
                     <input type="number" id="minCapacity" name="minimumCapacity" th:value="${minCapacity}" step="50"> <span>persons</span>
                 </div>
                 <div class="onefilter">
-                    <label for="maxCapacity" class="filtername">min</label>
+                    <label for="maxCapacity" class="filtername">max</label>
                     <input type="number" id="maxCapacity" name="maximumCapacity" th:value="${maxCapacity}" step="50"> <span>persons</span>
+                </div>
+                <h3>Distance to public transport</h3>
+                <div class="onefilter">
+                    <label for="maximumDistance" class="filtername">max</label>
+                    <input type="number" id="maximumDistance" name="maximumDistance" th:value="${maximumDistance}" step="5"> <span>km</span>
+                </div>
+                <h3>Food provided</h3>
+                 <div class="onefilter">
+                     <input type="radio" id="yes" name="fav_language" value="yes">
+                     <label for="yes">yes</label><br>
+                     <input type="radio" id="no" name="fav_language" value="no">
+                     <label for="no">no</label><br>
+                     <input type="radio" id="all" name="fav_language" value="all">
+                     <label for="all">all</label>
+
+                     <br>
+
+                 </div>
+                <h3>Indoor</h3>
+                <div class="onefilter">
+                    <input type="radio" id="yes" name="filterindoor" value="yes">
+                    <label for="yes">yes</label><br>
+                    <input type="radio" id="no" name="filterindoor" value="no">
+                    <label for="no">no</label><br>
+                    <input type="radio" id="all" name="filterindoor" value="all">
+                    <label for="all">all</label>
+
+                    <br>
+
+                </div>
+                <h3>outdoor</h3>
+                <div class="onefilter">
+                    <input type="radio" id="yes" name="filteroutdoor" value="yes">
+                    <label for="yes">yes</label><br>
+                    <input type="radio" id="no" name="filteroutdoor" value="no">
+                    <label for="no">no</label><br>
+                    <input type="radio" id="all" name="filteroutdoor" value="all">
+                    <label for="all">all</label>
+
+                    <br>
+
                 </div>
             </form>
         </div>
