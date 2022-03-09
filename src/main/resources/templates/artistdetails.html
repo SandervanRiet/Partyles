@@ -31,6 +31,14 @@
             <div class="info">Portfolio : </div>
             <div><p th:text="${artist.getPortfolio()}">no</p></div><br>
         </div>
+        <h2 th:text="'Partys by ' + ${artist.getArtistName()}">efeff </h2>
+        <div class="artistlist">
+            <div th:each="party: ${artist.getParties()}">
+                <a class="buttonLook mediumButton" th:href="@{'/partydetails/'+${party.getId()}}">
+                    <span th:text="${party.getName()}">venue name</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 <div th:replace="fragments/headerfooter :: footer">Hier komt de footer</div>

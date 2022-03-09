@@ -36,6 +36,16 @@
     <div><p th:text="${venue.getCity() }">Anwterpen</p></div>
     <br>
 </div>
+    <h2 th:text="'Partys in de ' + ${venue.getVenueName()}">efeff </h2>
+    <div class="partylist">
+        <div th:each="party: ${partys}">
+            <a class="buttonLook mediumButton" th:href="@{'/partydetails/'+${party.getId()}}">
+                <span th:text="${party.getName()}">venue name</span>
+            </a>
+        </div>
+    </div>
+
+
 </div > <div class="row1content" th:unless="${venue}">
     <p>no venue was chosen</p>
 </div>

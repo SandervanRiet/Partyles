@@ -1,6 +1,8 @@
 package be.thomasmore.party.controllers;
 
+import be.thomasmore.party.model.Party;
 import be.thomasmore.party.model.Venue;
+import be.thomasmore.party.repositories.PartyRepository;
 import be.thomasmore.party.repositories.VenueRepository;
 
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -23,6 +26,8 @@ public class VenueController {
     private Logger logger = LoggerFactory.getLogger(VenueController.class);
     @Autowired
     private VenueRepository venueRepository;
+    @Autowired
+    private PartyRepository partyRepository;
 
     @GetMapping({"/venuedetails/{id}", "/venuedetails"})
     public String venueDetails(Model model, @PathVariable(required = false) Integer id) {
@@ -32,6 +37,8 @@ public class VenueController {
         Optional<Venue> optionalNext = venueRepository.findFirstByIdGreaterThanOrderById(id);
         if (optionalVenue.isPresent()) {
             model.addAttribute("venue", optionalVenue.get());
+            List<Party> partys = partyRepository.findAllByVenue(optionalVenue.get());
+            model.addAttribute("partys",partys);
         }
         if (optionalPrev.isPresent()) {
             model.addAttribute("prev", optionalPrev.get().getId());
@@ -64,7 +71,7 @@ public class VenueController {
         logger.info(String.format("venueListWithFilter -- maxd=%f", maximumDistance));
         logger.info(String.format("venueListWithFilter -- min=%d", minimumCapacity));
         logger.info(String.format("venueListWithFilter -- max=%d", maximumCapacity));
-        Iterable<Venue> allVenues= venueRepository.AllVenues(minimumCapacity,maximumCapacity,maximumDistance);
+        Iterable<Venue> allVenues= venueRepository.findAllVenues(minimumCapacity,maximumCapacity,maximumDistance);
         model.addAttribute("venues",allVenues);
 
         int nrVenues = ((Collection <Venue>) allVenues).size();
