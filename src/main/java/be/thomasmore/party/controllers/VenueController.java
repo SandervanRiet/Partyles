@@ -62,24 +62,28 @@ public class VenueController {
     }
 
 
-    @GetMapping({"/venuelist/filter"})
-    public String venueListWithFilter(Model model
-            ,@RequestParam(required = false) Integer minimumCapacity
-            , @RequestParam(required = false) Integer maximumCapacity
-            , @RequestParam(required = false) Double maximumDistance
-            , @RequestParam(required = false) String isOutdoor) {
-        logger.info(String.format("venueListWithFilter -- maxd=%f", maximumDistance));
-        logger.info(String.format("venueListWithFilter -- min=%d", minimumCapacity));
-        logger.info(String.format("venueListWithFilter -- max=%d", maximumCapacity));
-        Iterable<Venue> allVenues= venueRepository.findAllVenues(minimumCapacity,maximumCapacity,maximumDistance);
-        model.addAttribute("venues",allVenues);
-
-        int nrVenues = ((Collection <Venue>) allVenues).size();
-        model.addAttribute("nrVenues",nrVenues);
+    @GetMapping("/venuelist/filter")
+    public String venueListWithFilter(Model model,
+                                      @RequestParam(required = false) Integer minimumCapacity,
+                                      @RequestParam(required = false) Integer maximumCapacity,
+                                      @RequestParam(required = false) Double distance,
+                                      @RequestParam(required = false) String foodProvided,
+                                      @RequestParam(required = false) String indoor,
+                                      @RequestParam(required = false) String outdoor) {
+        List<Venue> venues = venueRepository.findByCapacityDistanceFoodIndoorOutdoor(
+                minimumCapacity, maximumCapacity, distance,
+                ((foodProvided==null || foodProvided.equals("all")) ? null : (foodProvided.equals("yes") ? true : false)),
+                ((indoor==null || indoor.equals("all")) ? null : (indoor.equals("yes") ? true : false)),
+                ((outdoor==null || outdoor.equals("all")) ? null : (outdoor.equals("yes") ? true : false)));
+        model.addAttribute("maxCapacity", maximumCapacity);
+        model.addAttribute("minCapacity", minimumCapacity);
+        model.addAttribute("distance", distance);
+        model.addAttribute("foodProvided", foodProvided);
+        model.addAttribute("indoor", indoor);
+        model.addAttribute("outdoor", outdoor);
+        model.addAttribute("venues", venues);
+        model.addAttribute("nrVenues", venues.size());
         model.addAttribute("showFilter", true);
-        model.addAttribute("minCapacity",minimumCapacity);
-        model.addAttribute("maxCapacity",maximumCapacity);
-        model.addAttribute("maximumDistance",maximumDistance);
         return "venuelist";
     }
 }
