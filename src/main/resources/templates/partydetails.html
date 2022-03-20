@@ -38,12 +38,24 @@
                     <div><p th:text="${party.getExtraInfo()}">extra info </p> </div>
                 </div>
             </div>
-            <h2>Line up</h2>
-            <div class="partylist">
-                    <div th:each="artist: ${party.getArtists()}">
-                    <a class="buttonLook mediumButton" th:href="@{'/partydetails/'+${artist.getId}}">
-                        <span th:text="${artist.getArtistName()}">venue name</span>
-                    </a>
+            <div th:if="${!party.getArtists().isEmpty()}">
+                <h2>Line up</h2>
+                <div class="partylist">
+                        <div th:each="artist: ${party.getArtists()}">
+                        <a class="buttonLook mediumButton" th:href="@{'/partydetails/'+${artist.getId}}">
+                            <span th:text="${artist.getArtistName()}">artist name</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${!party.getAnimals().isEmpty()}">
+                <h2>Who goes</h2>
+                <div class="partylist">
+                    <div th:each="animal: ${party.getAnimals()}">
+                        <a class="buttonLook mediumButton" th:href="@{'/partydetails/'+${animal.getId()}}">
+                            <span th:text="${animal.getName()}">animal name</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

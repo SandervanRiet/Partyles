@@ -230,6 +230,31 @@ INSERT INTO PARTY_ARTISTS (PARTIES_ID, ARTISTS_ID) VALUES (4, 5);
 INSERT INTO PARTY_ARTISTS (PARTIES_ID, ARTISTS_ID) VALUES (6, 6);
 INSERT INTO PARTY_ARTISTS (PARTIES_ID, ARTISTS_ID) VALUES (6, 7);
 INSERT INTO PARTY_ARTISTS (PARTIES_ID, ARTISTS_ID) VALUES (6, 8);
+insert into ANIMAL (
+    ID, BIO , NAME, CITY)
+values (
+           1, 'zit al gans mijn leven in de zoo van Antwerpen','gillende giraf','Antwerpen');
+insert into ANIMAL (
+    ID, BIO , NAME, CITY)
+values (
+           2, 'geboren en getogen mechelenaart','de olifant','Mechelen');
+insert into ANIMAL (
+    ID, BIO , NAME, CITY)
+values (
+           3, '','dorsige dromedaris','Mortsel');
+insert into ANIMAL (
+    ID, BIO , NAME, CITY)
+values (
+           4, 'Van onder de Zimmertoren','Dansende Draak','Lier');
+
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (1, 1);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (2, 1);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (2, 3);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (3, 3);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (4, 3);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (5, 3);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (1, 4);
+INSERT INTO PARTY_ANIMALS (PARTIES_ID, ANIMALS_ID) VALUES (2, 4);
 
 
 
