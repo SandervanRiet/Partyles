@@ -52,7 +52,7 @@
                 <h2>Who goes</h2>
                 <div class="partylist">
                     <div th:each="animal: ${party.getAnimals()}">
-                        <a class="buttonLook mediumButton" th:href="@{'/partydetails/'+${animal.getId()}}">
+                        <a class="buttonLook mediumButton" th:href="@{'/animaldetails/'+${animal.getId()}}">
                             <span th:text="${animal.getName()}">animal name</span>
                         </a>
                     </div>
