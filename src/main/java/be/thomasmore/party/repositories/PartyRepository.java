@@ -13,4 +13,5 @@ public interface PartyRepository extends CrudRepository<Party, Integer> {
     Optional<Party> findFirstByOrderByIdDesc();
     Optional<Party> findFirstByOrderByIdAsc();
     List<Party> findAllByVenue(Venue venue);
+
 }

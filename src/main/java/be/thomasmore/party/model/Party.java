@@ -1,22 +1,33 @@
 package be.thomasmore.party.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 import java.util.Date;
 
 @Entity
 public class Party {
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "party_generator")
+    @SequenceGenerator(name = "party_generator", sequenceName = "party_seq", allocationSize = 1)
     @Id
-    private int id;
+    private Integer id;
+    @NotBlank
     private String name;
     private Integer pricePresaleInEur;
     private Integer priceInEur;
     private String extraInfo;
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     private Date date;
     @Temporal(TemporalType.TIME)
+    @DateTimeFormat(pattern = "HH:mm")
+    @NotNull
     private Date doors;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Venue venue;
     @ManyToMany
     private Collection<Artist> artists;
@@ -26,7 +37,7 @@ public class Party {
     public Party() {
     }
 
-    public Party(int id, String name, Integer pricePresaleInEur, Integer priceInEur, String extraInfo, Date date, Date doors) {
+    public Party(Integer id, String name, Integer pricePresaleInEur, Integer priceInEur, String extraInfo, Date date, Date doors) {
         this.id = id;
         this.name = name;
         this.pricePresaleInEur = pricePresaleInEur;
@@ -52,11 +63,11 @@ public class Party {
         this.venue = venue;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

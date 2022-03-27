@@ -15,6 +15,7 @@ public interface ArtistRepository extends CrudRepository<Artist, Integer> {
     Optional<Artist> findFirstByIdGreaterThanOrderById(int id);
     Optional<Artist> findFirstByOrderByIdDesc();
     Optional<Artist> findFirstByOrderByIdAsc();
+    List<Artist> findByIdIn(Integer[] ids);
 
     @Query("SELECT a FROM Artist a WHERE :word IS NULL OR LOWER(a.artistName) LIKE LOWER(CONCAT('%',:word,'%')) OR LOWER(a.bio) LIKE LOWER(CONCAT('%',:word,'%')) " +
             "OR LOWER(a.portfolio) LIKE LOWER(CONCAT('%',:word,'%')) OR LOWER(a.genre) LIKE LOWER(CONCAT('%',:word,'%'))")
